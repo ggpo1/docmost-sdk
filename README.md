@@ -8,13 +8,16 @@
   <a href="https://www.nuget.org/packages/Docmost.Sdk/"><img src="https://img.shields.io/nuget/dt/Docmost.Sdk.svg?label=NuGet%20downloads" alt="NuGet downloads" /></a>
   <a href="https://pypi.org/project/docmost-sdk/"><img src="https://img.shields.io/pypi/v/docmost-sdk.svg?label=PyPI" alt="PyPI" /></a>
   <a href="https://pypi.org/project/docmost-sdk/"><img src="https://img.shields.io/pypi/dm/docmost-sdk.svg?label=PyPI%20downloads" alt="PyPI downloads" /></a>
+  <a href="https://www.npmjs.com/package/docmost-sdk"><img src="https://img.shields.io/npm/v/docmost-sdk.svg?label=npm" alt="npm" /></a>
+  <a href="https://www.npmjs.com/package/docmost-sdk"><img src="https://img.shields.io/npm/dm/docmost-sdk.svg?label=npm%20downloads" alt="npm downloads" /></a>
 </p>
 
 <p align="center">
   <a href="https://github.com/docmost/docmost">Docmost</a> ·
   <a href="./api-1.json">OpenAPI spec</a> ·
   <a href="https://www.nuget.org/packages/Docmost.Sdk/">Docmost.Sdk</a> ·
-  <a href="https://pypi.org/project/docmost-sdk/">docmost-sdk</a>
+  <a href="https://pypi.org/project/docmost-sdk/">docmost-sdk (PyPI)</a> ·
+  <a href="https://www.npmjs.com/package/docmost-sdk">docmost-sdk (npm)</a>
 </p>
 
 ---
@@ -38,7 +41,7 @@
 |----------|---------|--------|------|
 | **C#** | [**Docmost.Sdk**](https://www.nuget.org/packages/Docmost.Sdk/) `1.0.0` | Published on [NuGet](https://www.nuget.org/packages/Docmost.Sdk/) | [README](./c#/README.md) |
 | **Python** | [**docmost-sdk**](https://pypi.org/project/docmost-sdk/) `1.0.0` | Published on [PyPI](https://pypi.org/project/docmost-sdk/) | [README](./python/README.md) |
-| **TypeScript** | `@docmost/sdk` | Planned | — |
+| **TypeScript** | [**docmost-sdk**](https://www.npmjs.com/package/docmost-sdk) `1.0.0` | Published on [npm](https://www.npmjs.com/package/docmost-sdk) | [README](./typescript/README.md) |
 | **Go** | `docmost` | Planned | — |
 
 ### C# — quick start
@@ -102,11 +105,36 @@ with DocmostClient(
 
 Full guide: **[python/README.md](./python/README.md)**
 
-### TypeScript — coming soon
+### TypeScript — quick start
+
+Install from npm:
 
 ```bash
-# npm install @docmost/sdk   (planned)
+npm install docmost-sdk
 ```
+
+Package page: **[npmjs.com/package/docmost-sdk](https://www.npmjs.com/package/docmost-sdk)**
+
+```typescript
+import { DocmostClient, parseDataAs } from 'docmost-sdk';
+import type { User } from 'docmost-sdk';
+
+const client = new DocmostClient({
+  baseUrl: 'https://docs.example.com',
+  apiToken: 'your-api-key',
+});
+
+const me = await client.users.getUserInfo();
+const user = parseDataAs<User>(me);
+
+const session = await DocmostClient.create({
+  baseUrl: 'https://docs.example.com',
+  email: 'admin@example.com',
+  password: 'secret',
+});
+```
+
+Full guide: **[typescript/README.md](./typescript/README.md)**
 
 ---
 
@@ -130,6 +158,7 @@ Log in via `POST /api/auth/login`. The server sets a session cookie; subsequent 
 |-----|-----------|----------------|
 | C# | `new DocmostClient(url, apiToken: "...")` | `new DocmostClient(url, email, password)` |
 | Python | `DocmostClient(url, api_token="...")` | `DocmostClient(url, email="...", password="...")` |
+| TypeScript | `new DocmostClient({ apiToken })` | `DocmostClient.create({ email, password })` |
 
 Do not mix token and password credentials in a single client instance.
 
@@ -171,7 +200,7 @@ docmost-sdk/
 │   ├── scripts/        # codegen from OpenAPI
 │   └── src/Docmost.Sdk/
 ├── python/             # docmost-sdk on PyPI
-├── typescript/         # (planned)
+├── typescript/         # docmost-sdk on npm
 └── context/            # dev notes
 ```
 
@@ -185,8 +214,9 @@ After updating `api-1.json`:
 |----------|---------|
 | **C#** | `python3 c#/scripts/generate_sdk.py` then `dotnet build c#/Docmost.Sdk.sln` |
 | **Python** | `python3 python/scripts/generate_sdk.py` |
+| **TypeScript** | `python3 typescript/scripts/generate_sdk.py` then `npm run build` in `typescript/` |
 
-Before a new release, bump the version in `c#/src/Docmost.Sdk/Docmost.Sdk.csproj` (NuGet) and `python/pyproject.toml` + `docmost/__init__.py` (PyPI).
+Before a new release, bump versions in each package manifest (`Docmost.Sdk.csproj`, `python/pyproject.toml`, `typescript/package.json`).
 
 ---
 
@@ -194,7 +224,8 @@ Before a new release, bump the version in `c#/src/Docmost.Sdk/Docmost.Sdk.csproj
 
 - A running [Docmost](https://docmost.com) instance (self-hosted or cloud)
 - .NET 8+ for [Docmost.Sdk](https://www.nuget.org/packages/Docmost.Sdk/)
-- Python 3.10+ for [docmost-sdk](https://pypi.org/project/docmost-sdk/)
+- Python 3.10+ for [docmost-sdk on PyPI](https://pypi.org/project/docmost-sdk/)
+- Node.js 18+ for [docmost-sdk on npm](https://www.npmjs.com/package/docmost-sdk)
 - Network access to your instance’s `/api` routes
 
 ---
@@ -209,7 +240,7 @@ Before a new release, bump the version in `c#/src/Docmost.Sdk/Docmost.Sdk.csproj
 
 ## License
 
-MIT — see [Docmost.Sdk on NuGet](https://www.nuget.org/packages/Docmost.Sdk/) and [docmost-sdk on PyPI](https://pypi.org/project/docmost-sdk/).
+MIT — see [Docmost.Sdk on NuGet](https://www.nuget.org/packages/Docmost.Sdk/), [docmost-sdk on PyPI](https://pypi.org/project/docmost-sdk/), and [docmost-sdk on npm](https://www.npmjs.com/package/docmost-sdk).
 
 ---
 
