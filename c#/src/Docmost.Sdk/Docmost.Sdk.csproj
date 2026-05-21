@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>Docmost.Sdk</RootNamespace>
+    <AssemblyName>Docmost.Sdk</AssemblyName>
+    <Version>1.0.0</Version>
+    <Authors>Docmost.Sdk Contributors</Authors>
+    <Description>Official-style .NET client for the Docmost REST API. Supports API token (Bearer) and email/password (cookie) authentication.</Description>
+    <PackageTags>docmost;wiki;api;sdk;client</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/docmost/docmost</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/docmost/docmost</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <NoWarn>$(NoWarn);CS1591;CS8618</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>
