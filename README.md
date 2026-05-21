@@ -42,7 +42,7 @@
 | **C#** | [**Docmost.Sdk**](https://www.nuget.org/packages/Docmost.Sdk/) `1.0.0` | Published on [NuGet](https://www.nuget.org/packages/Docmost.Sdk/) | [README](./c#/README.md) |
 | **Python** | [**docmost-sdk**](https://pypi.org/project/docmost-sdk/) `1.0.0` | Published on [PyPI](https://pypi.org/project/docmost-sdk/) | [README](./python/README.md) |
 | **TypeScript** | [**docmost-sdk**](https://www.npmjs.com/package/docmost-sdk) `1.0.0` | Published on [npm](https://www.npmjs.com/package/docmost-sdk) | [README](./typescript/README.md) |
-| **Go** | `docmost` | Planned | — |
+| **Go** | [**github.com/ggpo1/docmost-sdk/go**](./go/) `1.0.0` | Available (`go get`) | [README](./go/README.md) |
 
 ### C# — quick start
 
@@ -136,6 +136,33 @@ const session = await DocmostClient.create({
 
 Full guide: **[typescript/README.md](./typescript/README.md)**
 
+### Go — quick start
+
+```bash
+go get github.com/ggpo1/docmost-sdk/go/docmost
+```
+
+```go
+import (
+	"context"
+	"log"
+
+	"github.com/ggpo1/docmost-sdk/go/docmost"
+	"github.com/ggpo1/docmost-sdk/go/docmost/models"
+)
+
+client, err := docmost.NewClientWithToken("https://docs.example.com", "your-api-key")
+me, err := client.Users.GetUserInfo(context.Background())
+
+var user models.User
+_ = me.ParseData(&user)
+
+session, _ := docmost.NewClientWithCredentials("https://docs.example.com", "admin@example.com", "secret")
+_ = session
+```
+
+Full guide: **[go/README.md](./go/README.md)**
+
 ---
 
 ## Authentication
@@ -159,6 +186,7 @@ Log in via `POST /api/auth/login`. The server sets a session cookie; subsequent 
 | C# | `new DocmostClient(url, apiToken: "...")` | `new DocmostClient(url, email, password)` |
 | Python | `DocmostClient(url, api_token="...")` | `DocmostClient(url, email="...", password="...")` |
 | TypeScript | `new DocmostClient({ apiToken })` | `DocmostClient.create({ email, password })` |
+| Go | `NewClientWithToken(url, token)` | `NewClientWithCredentials(url, email, password)` |
 
 Do not mix token and password credentials in a single client instance.
 
@@ -201,6 +229,7 @@ docmost-sdk/
 │   └── src/Docmost.Sdk/
 ├── python/             # docmost-sdk on PyPI
 ├── typescript/         # docmost-sdk on npm
+├── go/                 # github.com/ggpo1/docmost-sdk/go
 └── context/            # dev notes
 ```
 
@@ -215,8 +244,9 @@ After updating `api-1.json`:
 | **C#** | `python3 c#/scripts/generate_sdk.py` then `dotnet build c#/Docmost.Sdk.sln` |
 | **Python** | `python3 python/scripts/generate_sdk.py` |
 | **TypeScript** | `python3 typescript/scripts/generate_sdk.py` then `npm run build` in `typescript/` |
+| **Go** | `python3 go/scripts/generate_sdk.py` then `go build ./...` in `go/` |
 
-Before a new release, bump versions in each package manifest (`Docmost.Sdk.csproj`, `python/pyproject.toml`, `typescript/package.json`).
+Before a new release, bump versions in each package manifest (`Docmost.Sdk.csproj`, `python/pyproject.toml`, `typescript/package.json`, `go/go.mod` tag).
 
 ---
 
@@ -226,6 +256,7 @@ Before a new release, bump versions in each package manifest (`Docmost.Sdk.cspro
 - .NET 8+ for [Docmost.Sdk](https://www.nuget.org/packages/Docmost.Sdk/)
 - Python 3.10+ for [docmost-sdk on PyPI](https://pypi.org/project/docmost-sdk/)
 - Node.js 18+ for [docmost-sdk on npm](https://www.npmjs.com/package/docmost-sdk)
+- Go 1.21+ for [github.com/ggpo1/docmost-sdk/go](./go/)
 - Network access to your instance’s `/api` routes
 
 ---

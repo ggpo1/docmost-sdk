@@ -1,0 +1,7 @@
+package models
+
+// LoginDto from OpenAPI.
+type LoginDto struct {
+	Email string `json:"email"`
+	Password string `json:"password"`
+}
