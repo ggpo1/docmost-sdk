@@ -5,14 +5,16 @@
 
 <p align="center">
   <a href="https://www.nuget.org/packages/Docmost.Sdk/"><img src="https://img.shields.io/nuget/v/Docmost.Sdk.svg?label=NuGet" alt="NuGet" /></a>
-  <a href="https://www.nuget.org/packages/Docmost.Sdk/"><img src="https://img.shields.io/nuget/dt/Docmost.Sdk.svg?label=downloads" alt="Downloads" /></a>
+  <a href="https://www.nuget.org/packages/Docmost.Sdk/"><img src="https://img.shields.io/nuget/dt/Docmost.Sdk.svg?label=NuGet%20downloads" alt="NuGet downloads" /></a>
+  <a href="https://pypi.org/project/docmost-sdk/"><img src="https://img.shields.io/pypi/v/docmost-sdk.svg?label=PyPI" alt="PyPI" /></a>
+  <a href="https://pypi.org/project/docmost-sdk/"><img src="https://img.shields.io/pypi/dm/docmost-sdk.svg?label=PyPI%20downloads" alt="PyPI downloads" /></a>
 </p>
 
 <p align="center">
   <a href="https://github.com/docmost/docmost">Docmost</a> ·
   <a href="./api-1.json">OpenAPI spec</a> ·
-  <a href="https://www.nuget.org/packages/Docmost.Sdk/">Docmost.Sdk on NuGet</a> ·
-  Multi-language
+  <a href="https://www.nuget.org/packages/Docmost.Sdk/">Docmost.Sdk</a> ·
+  <a href="https://pypi.org/project/docmost-sdk/">docmost-sdk</a>
 </p>
 
 ---
@@ -35,7 +37,7 @@
 | Language | Package | Status | Docs |
 |----------|---------|--------|------|
 | **C#** | [**Docmost.Sdk**](https://www.nuget.org/packages/Docmost.Sdk/) `1.0.0` | Published on [NuGet](https://www.nuget.org/packages/Docmost.Sdk/) | [README](./c#/README.md) |
-| **Python** | [**docmost-sdk**](./python/) `1.0.0` | Available (PyPI-ready) | [README](./python/README.md) |
+| **Python** | [**docmost-sdk**](https://pypi.org/project/docmost-sdk/) `1.0.0` | Published on [PyPI](https://pypi.org/project/docmost-sdk/) | [README](./python/README.md) |
 | **TypeScript** | `@docmost/sdk` | Planned | — |
 | **Go** | `docmost` | Planned | — |
 
@@ -73,9 +75,13 @@ Full guide: **[c#/README.md](./c#/README.md)**
 
 ### Python — quick start
 
+Install from PyPI:
+
 ```bash
 pip install docmost-sdk
 ```
+
+Package page: **[pypi.org/project/docmost-sdk](https://pypi.org/project/docmost-sdk/)**
 
 ```python
 from docmost import DocmostClient
@@ -159,7 +165,7 @@ See [api-1.json](./api-1.json) for the full operation list and schemas.
 docmost-sdk/
 ├── api-1.json          # OpenAPI 3.1 — source of truth
 ├── README.md           # this file
-├── c#/                 # C# / .NET — published as Docmost.Sdk
+├── c#/                 # C# / .NET — Docmost.Sdk on NuGet
 │   ├── Docmost.Sdk.sln
 │   ├── README.md
 │   ├── scripts/        # codegen from OpenAPI
@@ -180,7 +186,7 @@ After updating `api-1.json`:
 | **C#** | `python3 c#/scripts/generate_sdk.py` then `dotnet build c#/Docmost.Sdk.sln` |
 | **Python** | `python3 python/scripts/generate_sdk.py` |
 
-Bump `Version` in `c#/src/Docmost.Sdk/Docmost.Sdk.csproj` before publishing a new release to NuGet.
+Before a new release, bump the version in `c#/src/Docmost.Sdk/Docmost.Sdk.csproj` (NuGet) and `python/pyproject.toml` + `docmost/__init__.py` (PyPI).
 
 ---
 
@@ -188,7 +194,7 @@ Bump `Version` in `c#/src/Docmost.Sdk/Docmost.Sdk.csproj` before publishing a ne
 
 - A running [Docmost](https://docmost.com) instance (self-hosted or cloud)
 - .NET 8+ for [Docmost.Sdk](https://www.nuget.org/packages/Docmost.Sdk/)
-- Python 3.10+ for [docmost-sdk](./python/)
+- Python 3.10+ for [docmost-sdk](https://pypi.org/project/docmost-sdk/)
 - Network access to your instance’s `/api` routes
 
 ---
@@ -203,7 +209,7 @@ Bump `Version` in `c#/src/Docmost.Sdk/Docmost.Sdk.csproj` before publishing a ne
 
 ## License
 
-MIT — see [Docmost.Sdk on NuGet](https://www.nuget.org/packages/Docmost.Sdk/) for package details.
+MIT — see [Docmost.Sdk on NuGet](https://www.nuget.org/packages/Docmost.Sdk/) and [docmost-sdk on PyPI](https://pypi.org/project/docmost-sdk/).
 
 ---
 
