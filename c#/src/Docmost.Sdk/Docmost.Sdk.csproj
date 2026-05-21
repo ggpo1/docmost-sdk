@@ -12,7 +12,7 @@
     <Description>Official-style .NET client for the Docmost REST API. Supports API token (Bearer) and email/password (cookie) authentication.</Description>
     <PackageTags>docmost;wiki;api;sdk;client</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/docmost/docmost</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/ggpo1/docmost-sdk</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ggpo1/docmost-sdk</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

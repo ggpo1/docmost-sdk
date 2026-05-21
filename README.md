@@ -35,7 +35,7 @@
 | Language | Package | Status | Docs |
 |----------|---------|--------|------|
 | **C#** | [**Docmost.Sdk**](https://www.nuget.org/packages/Docmost.Sdk/) `1.0.0` | Published on [NuGet](https://www.nuget.org/packages/Docmost.Sdk/) | [README](./c#/README.md) |
-| **Python** | `docmost` | Planned | — |
+| **Python** | [**docmost-sdk**](./python/) `1.0.0` | Available (PyPI-ready) | [README](./python/README.md) |
 | **TypeScript** | `@docmost/sdk` | Planned | — |
 | **Go** | `docmost` | Planned | — |
 
@@ -71,11 +71,30 @@ var spaces = await session.Spaces.GetWorkspaceSpacesAsync(new PaginationOptions 
 
 Full guide: **[c#/README.md](./c#/README.md)**
 
-### Python — coming soon
+### Python — quick start
 
 ```bash
-# pip install docmost   (planned)
+pip install docmost-sdk
 ```
+
+```python
+from docmost import DocmostClient
+from docmost.models import PaginationOptions, User
+from docmost.response import parse_data
+
+with DocmostClient("https://docs.example.com", api_token="your-api-key") as client:
+    me = client.users.get_user_info()
+    user = parse_data(me, User)
+
+with DocmostClient(
+    "https://docs.example.com",
+    email="admin@example.com",
+    password="secret",
+) as session:
+    spaces = session.spaces.get_workspace_spaces(PaginationOptions(limit=20))
+```
+
+Full guide: **[python/README.md](./python/README.md)**
 
 ### TypeScript — coming soon
 
@@ -104,6 +123,7 @@ Log in via `POST /api/auth/login`. The server sets a session cookie; subsequent 
 | SDK | API token | Cookie session |
 |-----|-----------|----------------|
 | C# | `new DocmostClient(url, apiToken: "...")` | `new DocmostClient(url, email, password)` |
+| Python | `DocmostClient(url, api_token="...")` | `DocmostClient(url, email="...", password="...")` |
 
 Do not mix token and password credentials in a single client instance.
 
@@ -144,7 +164,7 @@ docmost-sdk/
 │   ├── README.md
 │   ├── scripts/        # codegen from OpenAPI
 │   └── src/Docmost.Sdk/
-├── python/             # (planned)
+├── python/             # docmost-sdk on PyPI
 ├── typescript/         # (planned)
 └── context/            # dev notes
 ```
@@ -158,6 +178,7 @@ After updating `api-1.json`:
 | Language | Command |
 |----------|---------|
 | **C#** | `python3 c#/scripts/generate_sdk.py` then `dotnet build c#/Docmost.Sdk.sln` |
+| **Python** | `python3 python/scripts/generate_sdk.py` |
 
 Bump `Version` in `c#/src/Docmost.Sdk/Docmost.Sdk.csproj` before publishing a new release to NuGet.
 
@@ -167,6 +188,7 @@ Bump `Version` in `c#/src/Docmost.Sdk/Docmost.Sdk.csproj` before publishing a ne
 
 - A running [Docmost](https://docmost.com) instance (self-hosted or cloud)
 - .NET 8+ for [Docmost.Sdk](https://www.nuget.org/packages/Docmost.Sdk/)
+- Python 3.10+ for [docmost-sdk](./python/)
 - Network access to your instance’s `/api` routes
 
 ---
