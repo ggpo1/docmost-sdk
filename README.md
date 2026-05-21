@@ -4,10 +4,15 @@
 </p>
 
 <p align="center">
+  <a href="https://www.nuget.org/packages/Docmost.Sdk/"><img src="https://img.shields.io/nuget/v/Docmost.Sdk.svg?label=NuGet" alt="NuGet" /></a>
+  <a href="https://www.nuget.org/packages/Docmost.Sdk/"><img src="https://img.shields.io/nuget/dt/Docmost.Sdk.svg?label=downloads" alt="Downloads" /></a>
+</p>
+
+<p align="center">
   <a href="https://github.com/docmost/docmost">Docmost</a> ·
   <a href="./api-1.json">OpenAPI spec</a> ·
-  Multi-language ·
-  Self-hosted &amp; cloud
+  <a href="https://www.nuget.org/packages/Docmost.Sdk/">Docmost.Sdk on NuGet</a> ·
+  Multi-language
 </p>
 
 ---
@@ -27,20 +32,22 @@
 
 ## SDKs
 
-| Language | Package / module | Status | Docs |
-|----------|------------------|--------|------|
-| **C#** | [`Docmost.Sdk`](./c#/) | Available | [README](./c#/README.md) |
+| Language | Package | Status | Docs |
+|----------|---------|--------|------|
+| **C#** | [**Docmost.Sdk**](https://www.nuget.org/packages/Docmost.Sdk/) `1.0.0` | Published on [NuGet](https://www.nuget.org/packages/Docmost.Sdk/) | [README](./c#/README.md) |
 | **Python** | `docmost` | Planned | — |
 | **TypeScript** | `@docmost/sdk` | Planned | — |
 | **Go** | `docmost` | Planned | — |
 
-> **C#** is the first published client. Other languages will follow the same API surface and auth model. Contributions and early adopters for Python/TypeScript are welcome.
-
 ### C# — quick start
+
+Install from NuGet:
 
 ```bash
 dotnet add package Docmost.Sdk
 ```
+
+Package page: **[nuget.org/packages/Docmost.Sdk](https://www.nuget.org/packages/Docmost.Sdk/)**
 
 ```csharp
 using Docmost.Sdk;
@@ -70,20 +77,10 @@ Full guide: **[c#/README.md](./c#/README.md)**
 # pip install docmost   (planned)
 ```
 
-```python
-# from docmost import DocmostClient   (planned)
-# client = DocmostClient(base_url="https://docs.example.com", api_token="...")
-```
-
 ### TypeScript — coming soon
 
 ```bash
 # npm install @docmost/sdk   (planned)
-```
-
-```typescript
-// import { DocmostClient } from "@docmost/sdk";   (planned)
-// const client = new DocmostClient({ baseUrl, apiToken });
 ```
 
 ---
@@ -142,7 +139,7 @@ See [api-1.json](./api-1.json) for the full operation list and schemas.
 docmost-sdk/
 ├── api-1.json          # OpenAPI 3.1 — source of truth
 ├── README.md           # this file
-├── c#/                 # C# / .NET
+├── c#/                 # C# / .NET — published as Docmost.Sdk
 │   ├── Docmost.Sdk.sln
 │   ├── README.md
 │   ├── scripts/        # codegen from OpenAPI
@@ -151,8 +148,6 @@ docmost-sdk/
 ├── typescript/         # (planned)
 └── context/            # dev notes
 ```
-
-When adding a new language, mirror the structure: `{lang}/README.md`, package manifest, and a codegen or hand-written client tied to `api-1.json`.
 
 ---
 
@@ -164,25 +159,15 @@ After updating `api-1.json`:
 |----------|---------|
 | **C#** | `python3 c#/scripts/generate_sdk.py` then `dotnet build c#/Docmost.Sdk.sln` |
 
-Other languages will document their generators here as they land.
+Bump `Version` in `c#/src/Docmost.Sdk/Docmost.Sdk.csproj` before publishing a new release to NuGet.
 
 ---
 
 ## Requirements
 
 - A running [Docmost](https://docmost.com) instance (self-hosted or cloud)
-- .NET 8+ for the C# package
+- .NET 8+ for [Docmost.Sdk](https://www.nuget.org/packages/Docmost.Sdk/)
 - Network access to your instance’s `/api` routes
-
----
-
-## Publishing (C#)
-
-```bash
-cd c#
-dotnet pack src/Docmost.Sdk/Docmost.Sdk.csproj -c Release
-# dotnet nuget push artifacts/Docmost.Sdk.*.nupkg --api-key <KEY> --source https://api.nuget.org/v3/index.json
-```
 
 ---
 
@@ -196,7 +181,7 @@ dotnet pack src/Docmost.Sdk/Docmost.Sdk.csproj -c Release
 
 ## License
 
-MIT — see per-package notices as they are added.
+MIT — see [Docmost.Sdk on NuGet](https://www.nuget.org/packages/Docmost.Sdk/) for package details.
 
 ---
 

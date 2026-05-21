@@ -8,12 +8,12 @@
     <RootNamespace>Docmost.Sdk</RootNamespace>
     <AssemblyName>Docmost.Sdk</AssemblyName>
     <Version>1.0.0</Version>
-    <Authors>Docmost.Sdk Contributors</Authors>
+    <Authors>Docmost.Sdk Contributors, ggpo1</Authors>
     <Description>Official-style .NET client for the Docmost REST API. Supports API token (Bearer) and email/password (cookie) authentication.</Description>
     <PackageTags>docmost;wiki;api;sdk;client</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/docmost/docmost</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/docmost/docmost</RepositoryUrl>
+    <RepositoryUrl>https://github.com/ggpo1/docmost-sdk</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IncludeSymbols>true</IncludeSymbols>

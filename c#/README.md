@@ -1,18 +1,36 @@
 # Docmost.Sdk
 
+[![NuGet](https://img.shields.io/nuget/v/Docmost.Sdk.svg)](https://www.nuget.org/packages/Docmost.Sdk/)
+[![NuGet downloads](https://img.shields.io/nuget/dt/Docmost.Sdk.svg)](https://www.nuget.org/packages/Docmost.Sdk/)
+[![.NET](https://img.shields.io/badge/.NET-8.0-512BD4)](https://www.nuget.org/packages/Docmost.Sdk/)
+
 .NET client library for the [Docmost](https://docmost.com) REST API.
 
+**NuGet:** [Docmost.Sdk](https://www.nuget.org/packages/Docmost.Sdk/) · current release **1.0.0**
+
 ## Installation
+
+From [NuGet](https://www.nuget.org/packages/Docmost.Sdk/):
 
 ```bash
 dotnet add package Docmost.Sdk
 ```
 
-Or reference the project locally:
+Or in `.csproj`:
+
+```xml
+<PackageReference Include="Docmost.Sdk" Version="1.0.0" />
+```
+
+### Local development
+
+Reference the project from this repository:
 
 ```bash
-dotnet add reference path/to/Docmost.Sdk.csproj
+dotnet add reference path/to/c#/src/Docmost.Sdk/Docmost.Sdk.csproj
 ```
+
+Requires **.NET 8** or later.
 
 ## Quick start
 
@@ -20,14 +38,13 @@ dotnet add reference path/to/Docmost.Sdk.csproj
 
 ```csharp
 using Docmost.Sdk;
-
-await using var client = new DocmostClient("https://docs.example.com", apiToken: "your-api-key");
-
 using Docmost.Sdk.Json;
 using Docmost.Sdk.Models;
 
+await using var client = new DocmostClient("https://docs.example.com", apiToken: "your-api-key");
+
 var me = await client.Users.GetUserInfoAsync();
-var profile = me.DeserializeData<User>(); // typed via ApiResponseExtensions
+var profile = me.DeserializeData<User>();
 ```
 
 ### Email and password (cookie session)
@@ -45,8 +62,6 @@ var spaces = await client.Spaces.GetWorkspaceSpacesAsync(
 ### Advanced configuration
 
 ```csharp
-using Docmost.Sdk;
-
 var client = new DocmostClient(new DocmostClientOptions
 {
     BaseUrl = new Uri("https://docs.example.com"),
@@ -78,14 +93,25 @@ await client.LoginAsync(); // when using email/password
 | `Health` / `Version` | Health and version |
 | `ApiKeys`, `Mfa`, `License`, `Sso`, `Ai`, `Cloud` | Enterprise features |
 
-All POST endpoints return `ApiResponse<JsonElement?>`. Use `System.Text.Json` to map `Data` to strongly typed models from `Docmost.Sdk.Models`.
+POST endpoints return `ApiResponse<JsonElement?>`. Map `Data` to models from `Docmost.Sdk.Models` via `ApiResponseExtensions.DeserializeData<T>()`.
 
-## Building & publishing to NuGet
+## Source & spec
+
+- Monorepo: [docmost-sdk](../)
+- OpenAPI: [api-1.json](../api-1.json)
+- Regenerate models/services: `python3 scripts/generate_sdk.py` (from repo root: `python3 c#/scripts/generate_sdk.py`)
+
+## Releasing a new version
+
+For maintainers after changes are ready:
 
 ```bash
 cd c#
-dotnet pack src/Docmost.Sdk/Docmost.Sdk.csproj -c Release
-dotnet nuget push src/Docmost.Sdk/bin/Release/Docmost.Sdk.1.0.0.nupkg --api-key <key> --source https://api.nuget.org/v3/index.json
+# bump <Version> in src/Docmost.Sdk/Docmost.Sdk.csproj
+dotnet pack src/Docmost.Sdk/Docmost.Sdk.csproj -c Release -o ./artifacts
+dotnet nuget push artifacts/Docmost.Sdk.*.nupkg \
+  --api-key <KEY> \
+  --source https://api.nuget.org/v3/index.json
 ```
 
 ## License
