@@ -1,11 +1,18 @@
-# docmost-sdk (Python)
+# docmost-sdk
 
 [![PyPI](https://img.shields.io/pypi/v/docmost-sdk.svg)](https://pypi.org/project/docmost-sdk/)
+[![PyPI downloads](https://img.shields.io/pypi/dm/docmost-sdk.svg)](https://pypi.org/project/docmost-sdk/)
 [![Python](https://img.shields.io/pypi/pyversions/docmost-sdk.svg)](https://pypi.org/project/docmost-sdk/)
 
 Python client for the [Docmost](https://docmost.com) REST API — same surface as the [.NET client](../c#/README.md).
 
+**PyPI:** [docmost-sdk](https://pypi.org/project/docmost-sdk/) · current release **1.0.0**
+
+Import name: `docmost` (package on PyPI: `docmost-sdk`).
+
 ## Installation
+
+From [PyPI](https://pypi.org/project/docmost-sdk/):
 
 ```bash
 pip install docmost-sdk
@@ -13,7 +20,13 @@ pip install docmost-sdk
 
 Requires **Python 3.10+**.
 
-From source:
+In `requirements.txt` or `pyproject.toml`:
+
+```text
+docmost-sdk==1.0.0
+```
+
+### Local development
 
 ```bash
 cd python
@@ -51,12 +64,13 @@ with DocmostClient(
 ```python
 import os
 
-client = DocmostClient(
+with DocmostClient(
     "https://docs.example.com",
     api_token=os.environ["DOCMOST_API_TOKEN"],
     login_on_startup=False,
     timeout=60.0,
-)
+) as client:
+    ...
 ```
 
 ## API surface
@@ -90,11 +104,25 @@ Methods return `ApiResponse` with a `data` field (usually `dict`). Use `parse_da
 
 Do not pass both `api_token` and `email`/`password`.
 
-## Regenerate from OpenAPI
+## Source & spec
+
+- Monorepo: [docmost-sdk](../)
+- OpenAPI: [api-1.json](../api-1.json)
+- Regenerate models/services: `python3 scripts/generate_sdk.py` (from repo root: `python3 python/scripts/generate_sdk.py`)
+
+## Releasing a new version
+
+For maintainers after changes are ready:
 
 ```bash
-python3 scripts/generate_sdk.py   # from repo root: python3 python/scripts/generate_sdk.py
+cd python
+# bump version in pyproject.toml and docmost/__init__.py
+python3 -m pip install build twine
+python3 -m build
+twine upload dist/*
 ```
+
+Use a PyPI API token (`__token__` as username). Each version can be uploaded only once.
 
 ## License
 
